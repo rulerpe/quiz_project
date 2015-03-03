@@ -17,6 +17,10 @@
 	var form = document.getElementById("content");
 	var q = document.getElementById("qustion");
 	var allChoice = form.getElementsByTagName("label");
+	q.textContent  = data[counter].question;
+	for(var i=0; i<4; i++){
+		allChoice[i].textContent = data[counter].choices[i];
+	}
 	form.addEventListener("submit", change,false);
 
 
@@ -24,9 +28,9 @@
 	function change(e){
 		e.preventDefault();
 		if(counter < data.length){
-			q.textContent  = data[counter].question;
+			q.textContent  = data[counter+1].question;
 			for(var i=0; i<4; i++){
-				allChoice[i].textContent = data[counter].choices[i];
+				allChoice[i].textContent = data[counter+1].choices[i];
 			}
 			for(var i=0; i<4; i++){
 				if( form.elements[i].checked){
@@ -34,10 +38,13 @@
 					break;
 				}
 			}
-			counter++;
+			
+			
 			if (playerAnswer == data[counter].answer){
-				score++;
-			}		
+				
+				score += 1;
+			}	
+			counter++;	
 		}else {
 			q.textContent  = "Your total score is "+score;
 		}
