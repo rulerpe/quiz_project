@@ -1,7 +1,10 @@
 (function(){
 	
-	var data =  [{ 	
-					question: "When is new year",
+	var data =  [ 	
+					{ question: "",
+					choices: ["","","",""],
+					answer: 1 },
+					{ question: "When is new year",
 					choices: ["March 1st","January 1st","Octorber 5th","June 30th"],
 					answer: 1 },
 					{ question: "Where is China",
@@ -20,12 +23,26 @@
 	var allChoice = form.getElementsByTagName("label");
 	q.textContent  = "Welcome click next to start";
 	form.addEventListener("submit", change,false);
+	form.getElementsByTagName("button")[0].addEventListener("click", back,false);
 
 
+	function back(e){
+		counter--;
+		q.textContent  = data[counter].question;
+			for(var i=0; i<4; i++){
+				allChoice[i].textContent = data[counter].choices[i];
+			}
+			for(var i=0; i<4; i++){
+				form.elements[i].checked = false;
+			}
+			form.elements[playerAnswer[counter]].checked = true;	
+				
+	}
 
 	function change(e){
 		e.preventDefault();
-		if(counter < data.length){
+		if(counter < data.length -1){
+			counter++;
 			q.textContent  = data[counter].question;
 			for(var i=0; i<4; i++){
 				allChoice[i].textContent = data[counter].choices[i];
@@ -41,7 +58,9 @@
 					score += 1;
 				}
 			}	
-			counter++;	
+			for(var i=0; i<4; i++){
+				form.elements[i].checked = false;
+			}	
 		}else {
 			for(var i=0; i<4; i++){
 					if( form.elements[i].checked){
