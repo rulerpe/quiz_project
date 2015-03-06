@@ -15,7 +15,7 @@
 					answer: 3 }];
 	var qustionLength = data.length;
 	var counter = 0;
-	var playerAnswer = [];
+	var playerAnswer = [0];
 	var score = 0;
 
 	var form = document.getElementById("content");
@@ -35,6 +35,7 @@
 			for(var i=0; i<4; i++){
 				form.elements[i].checked = false;
 			}
+			alert(counter);
 			form.elements[playerAnswer[counter]].checked = true;	
 				
 	}
