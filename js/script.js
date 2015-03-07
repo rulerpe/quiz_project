@@ -1,6 +1,6 @@
 (function(){
 	
-	var data =  [ 	
+	var qustions =  [ 	
 					{ question: "",
 					choices: ["","","",""],
 					answer: 1 },
@@ -13,6 +13,11 @@
 					{ question: "Color of sky",
 					choices: ["Red","Yellow","Pink","Blue"],
 					answer: 3 }];
+
+	localStorage.qustions = JSON.stringify(qustions);
+
+	var data = JSON.parse(localStorage.qustions);
+
 	var qustionLength = data.length;
 	var counter = 0;
 	var playerAnswer = [0];
@@ -27,16 +32,22 @@
 
 
 	function back(e){
-		counter--;
-		q.textContent  = data[counter].question;
+		if(counter > 1){
+			counter--;
+			q.textContent  = data[counter].question;
 			for(var i=0; i<4; i++){
 				allChoice[i].textContent = data[counter].choices[i];
 			}
 			for(var i=0; i<4; i++){
 				form.elements[i].checked = false;
 			}
-			alert(counter);
-			form.elements[playerAnswer[counter]].checked = true;	
+			console.log(counter, playerAnswer);
+			if(playerAnswer[counter] !=null)	{
+				form.elements[playerAnswer[counter]].checked = true;
+			}
+
+		}
+			
 				
 	}
 
@@ -49,33 +60,58 @@
 				allChoice[i].textContent = data[counter].choices[i];
 			}
 			if (counter!=0 ){
-				for(var i=0; i<4; i++){
+				for(var i=0; i<5; i++){
 					if( form.elements[i].checked){
-						playerAnswer.push(i);
+						if (counter > playerAnswer.length){
+							playerAnswer.push(i);
+							console.log(1);
+						}else {
+							playerAnswer[counter-1] = i;
+							console.log(2);
+						}
 						break;
 					}
-				}
-				if (playerAnswer[counter-1] == data[counter-1].answer){	
-					score += 1;
+					if(i==4){
+						back();
+					}
 				}
 			}	
+			console.log(counter, playerAnswer);
 			for(var i=0; i<4; i++){
 				form.elements[i].checked = false;
-			}	
-		}else {
+			}
+			if(playerAnswer[counter] !=null){
+				form.elements[playerAnswer[counter]].checked = true;
+			}
+		}else if(counter == data.length -1){
+			counter++;
 			for(var i=0; i<4; i++){
 					if( form.elements[i].checked){
-						playerAnswer.push(i);
+						if (counter > playerAnswer.length){
+							playerAnswer.push(i);
+							console.log(1);
+						}else {
+							playerAnswer[counter-1] = i;
+							console.log(2);
+						}
+						
 						break;
 					}
+					if(i==4){
+						back();
+					}
+			}
+			score = 0;
+			for (var i = 1, x = counter; i<x; i++){
+				if (playerAnswer[i] == data[i].answer){
+					score++;
 				}
-				if (playerAnswer[counter-1] == data[counter-1].answer){	
-					score += 1;
-				}
+			}
 			q.textContent  = "Your total score is "+score;
 			for(var i=0; i<4; i++){
 				allChoice[i].textContent = "";
 			}
+			console.log(counter, playerAnswer);
 		}
 	}
 
