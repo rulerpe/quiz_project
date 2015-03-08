@@ -8,6 +8,9 @@
 	</head>
 
 	<body>
+		<button type="button" name="register">Register</button>
+		<button type="button" name="logIn">Log In</button>
+		<p id="user">N/A</p>
 		<form name="quiz" id="content" action ="">
 			<p id="qustion">Qustion</p>
 			<input type="radio" name="choices" value="0" />
@@ -18,8 +21,9 @@
 			<label for="2"></label>
 			<input type="radio" name="choices" value="3" />
 			<label for="3"></label>
-			<button type="button" name="back">Back</button>
+			<button type="button" name="back" if = "back">Back</button>
 			<input type="submit" name="submit" value="Next"/ >
+			<button type="button" name="save" if = "save">Save</button>
 		</form>
 		<script src="js/script.js"></script>
 	</body> 
